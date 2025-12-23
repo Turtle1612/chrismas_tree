@@ -118,7 +118,7 @@
 
     <div id="loader">
         <div class="spinner"></div>
-        <div class="loader-text">Loading Holiday Magic</div>
+        <div class="loader-text">Loading Chrismas Tree</div>
     </div>
 
     <div id="canvas-container"></div>
@@ -486,19 +486,23 @@
         }
         
         function handleImageUpload(e) {
-            const files = e.target.files;
-            if(!files.length) return;
-            Array.from(files).forEach(f => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    new THREE.TextureLoader().load(ev.target.result, (t) => {
-                        t.colorSpace = THREE.SRGBColorSpace;
-                        addPhotoToScene(t);
-                    });
-                }
-                reader.readAsDataURL(f);
+    const files = e.target.files;
+    if (!files.length) return;
+
+    document.querySelector('.upload-wrapper').classList.add('ui-hidden');
+
+    Array.from(files).forEach(f => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            new THREE.TextureLoader().load(ev.target.result, (t) => {
+                t.colorSpace = THREE.SRGBColorSpace;
+                addPhotoToScene(t);
             });
         }
+        reader.readAsDataURL(f);
+    });
+}
+
 
         // --- MEDIAPIPE ---
         async function initMediaPipe() {
